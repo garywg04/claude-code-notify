@@ -14,6 +14,6 @@ NOTIFY_ON_ERROR=true
 CUSTOM_TITLE=""
 
 # Load user configuration if it exists
-if [ -f "$HOME/.claude-code-notify/config.sh" ]; then
-    source "$HOME/.claude-code-notify/config.sh"
+if [ -f "$HOME/.claude/notify-config.sh" ]; then
+    source "$HOME/.claude/notify-config.sh"
 fi

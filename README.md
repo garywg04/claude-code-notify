@@ -62,11 +62,11 @@ This plugin uses Claude Code's hook system to trigger desktop notifications at k
 
 ### Custom Configuration File
 
-Create a configuration file at `~/.claude-code-notify/config.sh` to customize notification behavior:
+Create a configuration file at `~/.claude/notify-config.sh` to customize notification behavior:
 
 ```bash
 #!/bin/bash
-# ~/.claude-code-notify/config.sh
+# ~/.claude/notify-config.sh
 
 # Enable/disable all notifications
 NOTIFY_ENABLED=true
@@ -148,7 +148,7 @@ claude-code-notify/
 
 ### Disabling notifications temporarily
 
-Set `NOTIFY_ENABLED=false` in your config file at `~/.claude-code-notify/config.sh`
+Set `NOTIFY_ENABLED=false` in your config file at `~/.claude/notify-config.sh`
 
 ## Contributing
 
