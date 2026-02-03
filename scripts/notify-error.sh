@@ -34,10 +34,6 @@ if [ -n "$TOOL_NAME" ]; then
 fi
 
 # macOS - use osascript for native notifications
-if [ "$NOTIFY_SOUND_ENABLED" = "true" ] && [ -n "$MACOS_SOUND_ERROR" ]; then
-  osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" sound name \"$MACOS_SOUND_ERROR\"" 2>/dev/null || true
-else
-  osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
-fi
+osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
 
 exit 0

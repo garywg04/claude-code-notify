@@ -25,10 +25,6 @@ TITLE="${CUSTOM_TITLE:-Claude Code}"
 MESSAGE="Task completed"
 
 # macOS - use osascript for native notifications
-if [ "$NOTIFY_SOUND_ENABLED" = "true" ] && [ -n "$MACOS_SOUND_COMPLETE" ]; then
-  osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" sound name \"$MACOS_SOUND_COMPLETE\"" 2>/dev/null || true
-else
-  osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
-fi
+osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
 
 exit 0

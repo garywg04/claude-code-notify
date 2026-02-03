@@ -7,7 +7,6 @@ Desktop notifications for Claude Code events on macOS. Get notified when Claude 
 - **Attention Notifications**: Get alerted when Claude Code needs your input or permission
 - **Task Completion**: Know when Claude finishes responding to your request
 - **Error Alerts**: Be notified immediately when a tool execution fails
-- **Sound Notifications**: Audio alerts with customizable sounds
 - **Configurable**: Customize notification behavior to your preferences
 
 ## Requirements
@@ -72,9 +71,6 @@ Create a configuration file at `~/.claude-code-notify/config.sh` to customize no
 # Enable/disable all notifications
 NOTIFY_ENABLED=true
 
-# Enable/disable sound effects
-NOTIFY_SOUND_ENABLED=true
-
 # Toggle specific notification types
 NOTIFY_ON_ATTENTION=true
 NOTIFY_ON_COMPLETE=true
@@ -82,12 +78,6 @@ NOTIFY_ON_ERROR=true
 
 # Custom notification title
 CUSTOM_TITLE="My Project"
-
-# macOS sound names (see /System/Library/Sounds for options)
-# Available: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
-MACOS_SOUND_ATTENTION="default"  # Use "default" for no sound
-MACOS_SOUND_COMPLETE="Glass"
-MACOS_SOUND_ERROR="Basso"
 ```
 
 ### Customizing Hooks
@@ -155,20 +145,6 @@ claude-code-notify/
    ```
 
 3. Make sure "Do Not Disturb" mode is not enabled.
-
-### No sound with notifications
-
-1. Check that your system volume is not muted.
-
-2. Verify the sound name is valid. Available sounds are in `/System/Library/Sounds`:
-   ```bash
-   ls /System/Library/Sounds
-   ```
-
-3. Test a sound directly:
-   ```bash
-   osascript -e 'display notification "Test" with title "Test" sound name "Glass"'
-   ```
 
 ### Disabling notifications temporarily
 
