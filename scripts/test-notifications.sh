@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Code Notify - Test Script
+# Claude Code Notify - Test Script (macOS only)
 # Tests all notification types to verify they work on your system
 
 set -e
@@ -10,33 +10,13 @@ echo "Claude Code Notify - Notification Test"
 echo "======================================="
 echo ""
 
-# Detect OS
-OS="$(uname -s)"
-case "$OS" in
-  Darwin)
-    echo "Detected OS: macOS"
-    ;;
-  Linux)
-    echo "Detected OS: Linux"
-    if command -v notify-send &>/dev/null; then
-      echo "Notification tool: notify-send (libnotify)"
-    elif command -v zenity &>/dev/null; then
-      echo "Notification tool: zenity"
-    elif command -v kdialog &>/dev/null; then
-      echo "Notification tool: kdialog"
-    else
-      echo "WARNING: No notification tool found!"
-      echo "Please install libnotify-bin, zenity, or kdialog"
-    fi
-    ;;
-  CYGWIN*|MINGW*|MSYS*)
-    echo "Detected OS: Windows (via $OS)"
-    ;;
-  *)
-    echo "Detected OS: Unknown ($OS)"
-    ;;
-esac
+# Verify we're on macOS
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "ERROR: This plugin only supports macOS"
+    exit 1
+fi
 
+echo "Detected OS: macOS"
 echo ""
 echo "Testing notifications..."
 echo ""
@@ -63,5 +43,6 @@ echo "======================================="
 echo "Test complete!"
 echo ""
 echo "If you saw 3 notifications, the plugin is working correctly."
-echo "If notifications didn't appear, check the troubleshooting section in README.md"
+echo "If notifications didn't appear, check System Preferences > Notifications"
+echo "and ensure your terminal app has notification permissions enabled."
 echo ""

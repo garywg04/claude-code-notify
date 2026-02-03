@@ -1,15 +1,19 @@
 # claude-code-notify
 
-Desktop notifications for Claude Code events. Get notified when Claude needs your attention, completes tasks, or encounters errors.
+Desktop notifications for Claude Code events on macOS. Get notified when Claude needs your attention, completes tasks, or encounters errors.
 
 ## Features
 
 - **Attention Notifications**: Get alerted when Claude Code needs your input or permission
 - **Task Completion**: Know when Claude finishes responding to your request
 - **Error Alerts**: Be notified immediately when a tool execution fails
-- **Cross-Platform**: Works on macOS, Linux, and Windows
-- **Sound Notifications**: Audio alerts on all platforms
+- **Sound Notifications**: Audio alerts with customizable sounds
 - **Configurable**: Customize notification behavior to your preferences
+
+## Requirements
+
+- macOS 10.10 or later
+- Terminal app with notification permissions enabled
 
 ## Installation
 
@@ -71,9 +75,6 @@ NOTIFY_ENABLED=true
 # Enable/disable sound effects
 NOTIFY_SOUND_ENABLED=true
 
-# Notification timeout in milliseconds (Linux only)
-NOTIFY_TIMEOUT=5000
-
 # Toggle specific notification types
 NOTIFY_ON_ATTENTION=true
 NOTIFY_ON_COMPLETE=true
@@ -83,14 +84,10 @@ NOTIFY_ON_ERROR=true
 CUSTOM_TITLE="My Project"
 
 # macOS sound names (see /System/Library/Sounds for options)
+# Available: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
 MACOS_SOUND_ATTENTION="default"  # Use "default" for no sound
 MACOS_SOUND_COMPLETE="Glass"
 MACOS_SOUND_ERROR="Basso"
-
-# Linux urgency levels: low, normal, critical
-LINUX_URGENCY_ATTENTION="normal"
-LINUX_URGENCY_COMPLETE="low"
-LINUX_URGENCY_ERROR="critical"
 ```
 
 ### Customizing Hooks
@@ -127,41 +124,6 @@ To disable completion notifications while keeping others:
 }
 ```
 
-## Platform Requirements
-
-### macOS
-No additional setup required. Uses native `osascript` for notifications.
-
-Available sounds: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
-
-### Linux
-Requires one of the following notification tools:
-- `notify-send` (libnotify) - Most common, works with GNOME, KDE, etc.
-- `zenity` - GTK-based alternative
-- `kdialog` - KDE-specific alternative
-
-For sound support (optional):
-- `paplay` (PulseAudio) - Most common
-- `aplay` (ALSA) - Fallback
-
-Install on Debian/Ubuntu:
-```bash
-sudo apt install libnotify-bin pulseaudio-utils
-```
-
-Install on Fedora:
-```bash
-sudo dnf install libnotify pulseaudio-utils
-```
-
-Install on Arch:
-```bash
-sudo pacman -S libnotify pulseaudio
-```
-
-### Windows
-Works with Windows 10/11 through PowerShell toast notifications. No additional setup required when using Git Bash, Cygwin, or WSL.
-
 ## Plugin Structure
 
 ```
@@ -183,45 +145,30 @@ claude-code-notify/
 
 ## Troubleshooting
 
-### Notifications not appearing on Linux
+### Notifications not appearing
 
-1. Check if `notify-send` is installed:
-   ```bash
-   which notify-send
-   ```
-
-2. Test notifications directly:
-   ```bash
-   notify-send "Test" "This is a test notification"
-   ```
-
-3. Ensure your notification daemon is running (e.g., `dunst`, `mako`, or your DE's built-in daemon)
-
-### No sound on Linux
-
-1. Check if PulseAudio is running:
-   ```bash
-   pactl info
-   ```
-
-2. Test sound directly:
-   ```bash
-   paplay /usr/share/sounds/freedesktop/stereo/message.oga
-   ```
-
-### Notifications not appearing on macOS
-
-1. Check System Preferences > Notifications and ensure Terminal (or your terminal app) has notification permissions enabled.
+1. Check System Preferences > Notifications and ensure your terminal app (Terminal, iTerm2, etc.) has notification permissions enabled.
 
 2. Test notifications directly:
    ```bash
    osascript -e 'display notification "Test" with title "Test"'
    ```
 
-### Notifications not appearing on Windows
+3. Make sure "Do Not Disturb" mode is not enabled.
 
-1. Ensure you're using a compatible shell (Git Bash, Cygwin, or WSL)
-2. Check Windows notification settings for your terminal application
+### No sound with notifications
+
+1. Check that your system volume is not muted.
+
+2. Verify the sound name is valid. Available sounds are in `/System/Library/Sounds`:
+   ```bash
+   ls /System/Library/Sounds
+   ```
+
+3. Test a sound directly:
+   ```bash
+   osascript -e 'display notification "Test" with title "Test" sound name "Glass"'
+   ```
 
 ### Disabling notifications temporarily
 
