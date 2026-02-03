@@ -1,0 +1,34 @@
+{
+  "name": "claude-code-notify",
+  "version": "1.0.0",
+  "description": "Desktop notifications for Claude Code events - get notified when Claude needs attention, completes tasks, or encounters errors",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "notifications",
+    "desktop-notifications",
+    "productivity",
+    "cli",
+    "plugin"
+  ],
+  "author": "Claude Code Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garywg04/claude-code-notify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/garywg04/claude-code-notify/issues"
+  },
+  "homepage": "https://github.com/garywg04/claude-code-notify#readme",
+  "files": [
+    ".claude-plugin",
+    "hooks",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
