@@ -4,7 +4,18 @@
 
 set -e
 
-TITLE="Claude Code"
+# Get the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source configuration
+source "$SCRIPT_DIR/config.sh"
+
+# Check if notifications are enabled
+if [ "$NOTIFY_ENABLED" != "true" ] || [ "$NOTIFY_ON_ATTENTION" != "true" ]; then
+    exit 0
+fi
+
+TITLE="${CUSTOM_TITLE:-Claude Code}"
 MESSAGE="Claude Code needs your attention"
 ICON="dialog-information"
 
@@ -36,16 +47,28 @@ esac
 case "$(uname -s)" in
   Darwin)
     # macOS - use osascript for native notifications
-    osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
+    if [ "$NOTIFY_SOUND_ENABLED" = "true" ] && [ -n "$MACOS_SOUND_ATTENTION" ] && [ "$MACOS_SOUND_ATTENTION" != "default" ]; then
+      osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" sound name \"$MACOS_SOUND_ATTENTION\"" 2>/dev/null || true
+    else
+      osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" 2>/dev/null || true
+    fi
     ;;
   Linux)
     # Linux - try notify-send first, then fall back to alternatives
     if command -v notify-send &>/dev/null; then
-      notify-send "$TITLE" "$MESSAGE" --icon="$ICON" 2>/dev/null || true
+      notify-send "$TITLE" "$MESSAGE" --icon="$ICON" --urgency="$LINUX_URGENCY_ATTENTION" -t "$NOTIFY_TIMEOUT" 2>/dev/null || true
     elif command -v zenity &>/dev/null; then
       zenity --notification --text="$TITLE: $MESSAGE" 2>/dev/null || true
     elif command -v kdialog &>/dev/null; then
-      kdialog --passivepopup "$MESSAGE" 5 --title "$TITLE" 2>/dev/null || true
+      kdialog --passivepopup "$MESSAGE" $((NOTIFY_TIMEOUT / 1000)) --title "$TITLE" 2>/dev/null || true
+    fi
+    # Play sound on Linux if enabled
+    if [ "$NOTIFY_SOUND_ENABLED" = "true" ]; then
+      if command -v paplay &>/dev/null; then
+        paplay /usr/share/sounds/freedesktop/stereo/message.oga 2>/dev/null &
+      elif command -v aplay &>/dev/null; then
+        aplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null &
+      fi
     fi
     ;;
   CYGWIN*|MINGW*|MSYS*)
