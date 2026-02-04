@@ -1,0 +1,26 @@
+{
+  "name": "claude-code-notify",
+  "owner": {
+    "name": "Gary Wong"
+  },
+  "metadata": {
+    "description": "Desktop notifications for Claude Code events",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-notify",
+      "source": "plugins/claude-code-notify",
+      "description": "Desktop notifications for Claude Code events - get notified when Claude needs attention, completes tasks, or encounters errors",
+      "version": "1.0.0",
+      "author": {
+        "name": "Gary Wong"
+      },
+      "category": "productivity",
+      "keywords": ["notifications", "macos", "tmux", "alerts", "productivity"],
+      "license": "MIT",
+      "homepage": "https://github.com/garywg04/claude-code-notify",
+      "repository": "https://github.com/garywg04/claude-code-notify"
+    }
+  ]
+}
