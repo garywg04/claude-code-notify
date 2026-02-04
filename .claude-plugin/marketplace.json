@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "claude-code-notify",
-      "source": "plugins/claude-code-notify",
+      "source": "./plugins/claude-code-notify",
       "description": "Desktop notifications for Claude Code events - get notified when Claude needs attention, completes tasks, or encounters errors",
       "version": "1.0.0",
       "author": {
