@@ -1,6 +1,14 @@
 # claude-code-notify
 
-A Claude Code plugin that sends desktop notifications when Claude Code needs your attention.
+A Claude Code plugin that sends macOS notifications when Claude Code needs your attention.
+
+## Features
+
+- **Task Completion**: macOS notification when Claude finishes a task
+- **Permission Request**: macOS notification when Claude needs permission approval
+- **Tmux Integration**: Visual pane background colors
+  - Green: task completed
+  - Blue: permission approval needed
 
 ## Installation
 
@@ -13,6 +21,11 @@ A Claude Code plugin that sends desktop notifications when Claude Code needs you
    ```bash
    claude --plugin-dir /path/to/claude-code-notify
    ```
+
+## Requirements
+
+- macOS (uses `osascript` for notifications)
+- Optional: tmux (for visual pane indicators)
 
 ## License
 
